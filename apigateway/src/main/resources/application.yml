@@ -1,0 +1,41 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: book-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/book/**
+        - id: employee-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/employee/**
+        - id: product-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/product/**
+
+        - id: product-category-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/category/**
+
+        - id: identity-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/v1/auth/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+
