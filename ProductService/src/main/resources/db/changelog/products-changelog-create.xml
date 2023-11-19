@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="create-table-product" author="products" runAlways="true">
+        <preConditions onFail="CONTINUE" onFailMessage="table đã tồn tại">
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products">
+            <column name="product_id" type="VARCHAR(255)" autoIncrement="false">
+                <constraints primaryKey="true" primaryKeyName="product_id" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="table-product-category-id" author="products" runAlways="true">
+        <preConditions onFail="CONTINUE" onFailMessage="Column name đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="category_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="category_id" type="VARCHAR(255)">
+                <constraints nullable="false" foreignKeyName="category_id"
+                             referencedTableName="categories" referencedColumnNames="id" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-name" author="products" runAlways="true">
+        <preConditions onFail="CONTINUE" onFailMessage="Column name đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="name"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-description" author="products" runAlways="true">
+        <preConditions onFail="CONTINUE" onFailMessage="Column description đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="description"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="description" type="VARCHAR(300)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-price" author="products" runAlways="true">
+        <preConditions onFail="CONTINUE" onFailMessage="Column price đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="price"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="price" type="float">
+                <constraints nullable="false" checkConstraint="price > 0"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-thumbnail" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column thumbnail đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="thumbnail"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="thumbnail" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-number-of-product" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column number_of_product đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="number_of_product"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="number_of_product" type="INT" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-is-active" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column is_active đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="is_active"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="is_active" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-created-at" author="product">
+        <preConditions onFail="CONTINUE" onFailMessage="Column created_at đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="created_at"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-updated-at" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column updated_at đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="updated_at"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="products">
+            <column name="updated_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="table-product-updated_at_v2" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column updated_at đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="updated_at"/>
+            </not>
+        </preConditions>
+        <addNotNullConstraint tableName="product" columnName="updated_at" columnDataType="datetime"/>
+    </changeSet>
+    <changeSet id="table-product-created-at_v2" author="products">
+        <preConditions onFail="CONTINUE" onFailMessage="Column created_at đã tồn tại">
+            <not>
+                <columnExists tableName="products" columnName="created_at"/>
+            </not>
+        </preConditions>
+        <addNotNullConstraint tableName="products" columnName="created_at" columnDataType="datetime" />
+    </changeSet>
+</databaseChangeLog>

@@ -14,9 +14,6 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.ServerWebInputException;
 import reactor.core.publisher.Mono;
 
-import java.net.ConnectException;
-import java.util.function.Supplier;
-
 @Component
 public class ApiGatewayFilter implements GlobalFilter, Ordered {
     @Override
@@ -44,7 +41,6 @@ public class ApiGatewayFilter implements GlobalFilter, Ordered {
         DataBuffer buffer = dataBufferFactory.wrap(errorResponseBytes);
         return response.writeWith(Mono.just(buffer));
     }
-
 
     @Override
     public int getOrder() {

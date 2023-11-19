@@ -93,7 +93,7 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<configuration>
-					<propertyFile>src/main/resource/application.properties</propertyFile>
+					<propertyFile>src/main/resources/application.properties</propertyFile>
 					<propertyFileWillOverride>true</propertyFileWillOverride>
 				</configuration>
 			</plugin>
